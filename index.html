@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Tipe | Editor made simpler</title>
+  <meta name="description" content="Tipeは、どの端末からでも書けるノートです。データはクラウドに自動保存。面倒なフォルダ分けも一切なし。書くことだけに集中して。" />
+  <link rel="icon" href="./src/assets/fabicon.png" sizes="16x16" type="image/png" /> 
+  <link rel="icon" href="./src/assets/fabicon.png" sizes="32x32" type="image/png" />  
+  <link rel="icon" href="./src/assets/fabicon.png" sizes="48x48" type="image/png" /> 
+  <link rel="icon" href="./src/assets/fabicon.png" sizes="62x62" type="image/png" />
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|Roboto&display=swap" rel="stylesheet">
+  <meta property="og:url" content="https://tipe-it.web.app" />
+  <meta property="og:title" content="Tipe | Editor made simpler" />
+  <meta property="og:description" content="Tipeは、どの端末からでも書けるノートです。データはクラウドに自動保存。面倒なフォルダ分けも一切なし。書くことだけに集中して。" />
+  <meta property="og:image" content="./src/assets/ogp.png" />
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+  <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyDrZeNpMEIMsS7jo2IHg93-gUBOBQnh2gg",
+      authDomain: "tipe-it.firebaseapp.com",
+      databaseURL: "https://tipe-it.firebaseio.com",
+      projectId: "tipe-it",
+      storageBucket: "tipe-it.appspot.com",
+      messagingSenderId: "151138394945",
+      appId: "1:151138394945:web:fbe7385d2f89d38d"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    var db = firebase.firestore();
+
+  </script>
+  <title>vue-editor</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
+</html>

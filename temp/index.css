@@ -1,0 +1,24 @@
+body{
+  height: 3000px;
+  padding: 3rem;
+}
+
+section{
+  background: dodgerblue;
+  color: white;
+  line-height: 1.5;
+  padding: 30px;
+}
+
+.blue{
+  display: block;
+  width: 100px;
+  height: 100px;
+  background: tomato;
+  position: sticky;
+  bottom: 30px;
+}
+
+.flex{
+    display: flex;
+}
