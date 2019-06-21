@@ -8,16 +8,20 @@
 
 <script>
 export default {
-  name: 'Header'
+  name: 'NotLoggedInHeader'
 }
 </script>
 
 <style lang="scss" scoped>
 header{
+  width: 100vw;
   position: fixed;
-  font-size: 24px;
   padding: 24px;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 .bg-white{
   display: inline-block;

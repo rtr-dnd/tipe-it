@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Tipe | Editor made simpler</title>
   <meta name="description" content="Tipeは、どの端末からでも書けるノートです。データはクラウドに自動保存。面倒なフォルダ分けも一切なし。書くことだけに集中して。" />
-  <link rel="icon" href="./src/assets/fabicon.png" sizes="16x16" type="image/png" /> 
-  <link rel="icon" href="./src/assets/fabicon.png" sizes="32x32" type="image/png" />  
-  <link rel="icon" href="./src/assets/fabicon.png" sizes="48x48" type="image/png" /> 
+  <link rel="icon" href="./src/assets/fabicon.png" sizes="16x16" type="image/png" />
+  <link rel="icon" href="./src/assets/fabicon.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="./src/assets/fabicon.png" sizes="48x48" type="image/png" />
   <link rel="icon" href="./src/assets/fabicon.png" sizes="62x62" type="image/png" />
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|Roboto&display=swap" rel="stylesheet">
   <meta property="og:url" content="https://tipe-it.web.app" />
@@ -58,7 +58,27 @@
     // Initialize the FirebaseUI Widget using Firebase.
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
     // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
+    var currentUID;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        // User is signed in.
+      } else {
+        if (location.pathname == "/") {
+          location.pathname = "/get-started"
+        }
+      }
+    });
+    if (location.pathname == "/get-started") {
+      ui.start('#firebaseui-auth-container', uiConfig);
+    }
+
+    var signout = function () {
+      firebase.auth().signOut().then(function () {
+        location.pathname = "/get-started"
+      }).catch(function (error) {
+        console.log('error occurred')
+      });
+    }
 
     var db = firebase.firestore();
 

@@ -1,23 +1,29 @@
 <template>
-  <div id="texts">
-    <div class="text" v-for="(input, index) in sharedState.state.property.content" :key="input.id">
-      <Border :content-index="index" v-bind:id="index"></Border>
-      <CustomInput :content-index="index" v-bind:id="index"></CustomInput>
-    </div>
-    <div class="text">
-      <BorderLast></BorderLast>
+  <div>
+    <LoggedInHeader></LoggedInHeader>
+    <div id="texts">
+      <div class="text" v-for="(input, index) in sharedState.state.property.content" :key="input.id">
+        <Border :content-index="index" v-bind:id="index"></Border>
+        <CustomInput :content-index="index" v-bind:id="index"></CustomInput>
+      </div>
+      <div class="text">
+        <BorderLast></BorderLast>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+import LoggedInHeader from "./LoggedInHeader"
 import CustomInput from "./CustomInput";
 import Border from "./Border";
 import BorderLast from "./BorderLast";
 import PropertyStore from "../models/PropertyStore";
 import autosize from "autosize";
+
 Vue.component("CustomInput", CustomInput);
+Vue.component("LoggedInHeader", LoggedInHeader);
 
 export default {
   name: "Texts",
