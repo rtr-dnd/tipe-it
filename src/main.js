@@ -5,11 +5,13 @@ import Vue from 'vue'
 import App from './App'
 import autosize from 'autosize'
 import PropertyStore from './models/PropertyStore'
+import router from './router'
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 var thisApp = new Vue({
+  router: router,
   el: '#app',
   components: {
     App
