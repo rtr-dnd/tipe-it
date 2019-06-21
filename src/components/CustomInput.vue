@@ -29,9 +29,11 @@ import { setTimeout, clearTimeout } from 'timers'
 var timerIsSet = false
 var timerId
 var syncDb = function () {
-  // eslint-disable-next-line
-  db.collection('user1').doc('input').update({ content: PropertyStore.state.property.content })
-  console.log('synced')
+  firebase.auth().onAuthStateChanged(function (user) {
+    // eslint-disable-next-line
+    db.collection('users').doc(user.uid).update({ content: PropertyStore.state.property.content })
+    console.log('synced')
+  })
 }
 var syncTimer = function () {
   timerId = setTimeout(syncDb, 500)

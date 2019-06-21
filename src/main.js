@@ -19,30 +19,47 @@ var thisApp = new Vue({
   template: '<App/>',
   mounted: function () {
     // eslint-disable-next-line
-    db.collection('user1').doc('input').get().then((doc) => {
-      var userData = doc.data().content
-      if (userData[userData.length - 1].text != '' && userData[userData.length - 1].title != '') {
-        userData.push({text: '', title: ''})
-      }
-      PropertyStore.state.property.content = userData
-      this.$nextTick(function () {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
         // eslint-disable-next-line
-        document.getElementById('textarea-'+(userData.length - 1)).focus()
-        // eslint-disable-next-line
-        autosize.update((document.querySelectorAll('textarea')))
-        autosize(document.querySelectorAll('textarea'))
-      })
-    })
+        db.collection('users').doc(user.uid).set({
+          created: true
+        }, {merge: true})
+          .then(() => {
+            // eslint-disable-next-line
+            db.collection('users').doc(user.uid).get().then((doc) => {
+              var userData
+              if (doc.data().content === undefined) {
+                userData = [{text: '', title: ''}]
+                console.log(userData)
+              } else {
+                userData = doc.data().content
+                if (userData[userData.length - 1].text != '' && userData[userData.length - 1].title != '') {
+                  userData.push({text: '', title: ''})
+                }
+              }
+              PropertyStore.state.property.content = userData
+              thisApp.$nextTick(function () {
+                // eslint-disable-next-line
+                document.getElementById('textarea-'+(userData.length - 1)).focus()
+                // eslint-disable-next-line
+                autosize.update((document.querySelectorAll('textarea')))
+                autosize(document.querySelectorAll('textarea'))
+              })
+            })
+          })
 
-    // eslint-disable-next-line
-    db.collection('user1').doc('input').onSnapshot(function (doc) {
-      var userData = doc.data().content
-      PropertyStore.state.property.content = userData
-      thisApp.$nextTick(function () {
-      // eslint-disable-next-line
-        autosize.update((document.querySelectorAll('textarea')))
-        autosize(document.querySelectorAll('textarea'))
-      })
+        // eslint-disable-next-line
+        db.collection('users').doc(user.uid).onSnapshot(function (doc) {
+          var userData = doc.data().content
+          PropertyStore.state.property.content = userData
+          thisApp.$nextTick(function () {
+          // eslint-disable-next-line
+            autosize.update((document.querySelectorAll('textarea')))
+            autosize(document.querySelectorAll('textarea'))
+          })
+        })
+      }
     })
   }
 })
