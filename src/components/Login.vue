@@ -17,6 +17,6 @@ export default {
 
 <style lang="scss" scoped>
 #firebaseui-auth-container{
-  padding-top: 200px;
+  padding-top: 40vh;
 }
 </style>

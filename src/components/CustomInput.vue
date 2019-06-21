@@ -93,7 +93,7 @@ textarea {
 input {
   width: 100%;
   position: sticky;
-  top: 80vh;
+  top: 70vh;
   color: rgba(0, 0, 0, 0.4);
   font-size: 18px;
   outline: none;

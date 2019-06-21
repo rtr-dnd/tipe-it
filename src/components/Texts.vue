@@ -47,8 +47,9 @@ export default {
   left: 0;
   bottom: 5vh;
   right: 0;
-  overflow: scroll;
-  padding: 60px 0 50vh 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 20vh 0 40vh 0;
 }
 .text {
   max-width: 800px;

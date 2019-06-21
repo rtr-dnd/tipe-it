@@ -31,10 +31,17 @@ export default {
 
 <style lang="scss">
 body{
-    font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
-    font-family: 'Roboto', sans-serif;
+    font-family: -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
     margin: 0 !important;
     box-sizing: border-box;
+}
+
+::-webkit-scrollbar{
+  width: 0px;
+}
+
+textarea{
+  font-family: -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
 }
 
 .text{

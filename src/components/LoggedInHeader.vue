@@ -20,11 +20,11 @@ header{
   width: 100vw;
   position: fixed;
   padding: 24px;
-  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
+  z-index: 10;
 }
 li{
   list-style: none;
