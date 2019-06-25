@@ -51,7 +51,12 @@ var thisApp = new Vue({
 
         // eslint-disable-next-line
         db.collection('users').doc(user.uid).onSnapshot(function (doc) {
-          var userData = doc.data().content
+          if (doc.data().content === undefined) {
+            var userData = [{text: '', title: ''}]
+            console.log(userData)
+          } else {
+            var userData = doc.data().content
+          }
           PropertyStore.state.property.content = userData
           thisApp.$nextTick(function () {
           // eslint-disable-next-line

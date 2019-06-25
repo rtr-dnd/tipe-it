@@ -5,6 +5,7 @@
     </div>
     <nav>
       <li id="signout" onclick="signout()">Sign out</li>
+      <li id="delete" onclick="deleteAccount()">Delete Account</li>
     </nav>
   </header>
 </template>
