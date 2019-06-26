@@ -14,9 +14,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@material/menu": "^3.0.0",
     "autosize": "^4.0.2",
     "firebase": "^6.2.1",
+    "material-components-vue": "^1.0.2",
+    "node-sass-import": "^2.0.1",
     "vue": "^2.5.2",
+    "vue-material": "^1.0.0-beta-11",
     "vue-router": "^3.0.6",
     "webpack-dev-server": "^2.9.1"
   },
