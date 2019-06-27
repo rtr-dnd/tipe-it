@@ -16,55 +16,60 @@
         v-on:input="sync"
         placeholder="Add a title"
         v-bind:id="'titlearea-'+contentIndex"
-        autocomplete="off">
+        autocomplete="off"
+      >
     </div>
   </div>
 </template>
 
 <script>
-import PropertyStore from '../models/PropertyStore'
-import { setTimeout, clearTimeout } from 'timers'
+import PropertyStore from "../models/PropertyStore";
+import { setTimeout, clearTimeout } from "timers";
 
 // eslint-disable-next-line
-var timerIsSet = false
-var timerId
-var syncDb = function () {
-  firebase.auth().onAuthStateChanged(function (user) {
+var timerIsSet = false;
+var timerId;
+var timerId2;
+var syncDb = function() {
+  firebase.auth().onAuthStateChanged(function(user) {
     // eslint-disable-next-line
-    db.collection('users').doc(user.uid).update({ content: PropertyStore.state.property.content })
-    console.log('synced')
-  })
-}
-var syncTimer = function () {
-  timerId = setTimeout(syncDb, 500)
-  timerIsSet = true
-}
+    db.collection("users")
+      .doc(user.uid)
+      .update({ content: PropertyStore.state.property.content });
+  });
+};
 
 export default {
-  name: 'CustomInput',
+  name: "CustomInput",
   props: {
     contentIndex: {
       required: true
     }
   },
-  data: function () {
+  data: function() {
     return {
       sharedState: PropertyStore
-    }
+    };
   },
   methods: {
-    sync: function () {
+    sync: function() {
       if (timerIsSet) {
-        clearTimeout(timerId)
+        clearTimeout(timerId);
+        clearTimeout(timerId2);
       }
-      syncTimer()
-    },
+      timerId = setTimeout(syncDb, 500);
+      timerId2 = setTimeout(() => {
+        this.$emit("synced-event");
+      }, 500);
+      timerIsSet = true;
+      this.$emit("unsaved-event")
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.flex-wrapper{
+.flex-wrapper {
   display: flex;
   margin: 32px;
   // align-items: flex-end;
@@ -82,8 +87,8 @@ textarea {
 
   &::placeholder {
     color: rgba(0, 0, 0, 0.3);
-    font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    font-family: "Roboto", sans-serif;
   }
 }
 .title-wrapper {
@@ -100,7 +105,7 @@ input {
   border: none;
   text-align: right;
 
-  &::placeholder{
+  &::placeholder {
     color: rgba(0, 0, 0, 0.1);
   }
 }

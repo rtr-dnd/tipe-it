@@ -24,24 +24,32 @@ var thisApp = new Vue({
         // eslint-disable-next-line
         db.collection('users').doc(user.uid).set({
           created: true
-        }, {merge: true})
+        }, {
+          merge: true
+        })
           .then(() => {
             // eslint-disable-next-line
             db.collection('users').doc(user.uid).get().then((doc) => {
               var userData
               if (doc.data().content === undefined) {
-                userData = [{text: '', title: ''}]
+                userData = [{
+                  text: '',
+                  title: ''
+                }]
                 console.log(userData)
               } else {
                 userData = doc.data().content
                 if (userData[userData.length - 1].text != '' && userData[userData.length - 1].title != '') {
-                  userData.push({text: '', title: ''})
+                  userData.push({
+                    text: '',
+                    title: ''
+                  })
                 }
               }
               PropertyStore.state.property.content = userData
               thisApp.$nextTick(function () {
                 // eslint-disable-next-line
-                document.getElementById('textarea-'+(userData.length - 1)).focus()
+                document.getElementById('textarea-' + (userData.length - 1)).focus()
                 // eslint-disable-next-line
                 autosize.update((document.querySelectorAll('textarea')))
                 autosize(document.querySelectorAll('textarea'))
@@ -52,14 +60,17 @@ var thisApp = new Vue({
         // eslint-disable-next-line
         db.collection('users').doc(user.uid).onSnapshot(function (doc) {
           if (doc.data().content === undefined) {
-            var userData = [{text: '', title: ''}]
+            var userData = [{
+              text: '',
+              title: ''
+            }]
             console.log(userData)
           } else {
             var userData = doc.data().content
           }
           PropertyStore.state.property.content = userData
           thisApp.$nextTick(function () {
-          // eslint-disable-next-line
+            // eslint-disable-next-line
             autosize.update((document.querySelectorAll('textarea')))
             autosize(document.querySelectorAll('textarea'))
           })
@@ -79,7 +90,10 @@ document.addEventListener('keydown', function (event) {
         var tempidnum = tempid.slice(10)
         // eslint-disable-next-line
         if (tempidnum == PropertyStore.state.property.content.length - 1) {
-          PropertyStore.state.property.content.push({text: '', title: ''})
+          PropertyStore.state.property.content.push({
+            text: '',
+            title: ''
+          })
         }
         thisApp.$nextTick(function () {
           // eslint-disable-next-line
@@ -106,7 +120,9 @@ document.addEventListener('keydown', function (event) {
               autosize(document.querySelectorAll('textarea'))
             })
             // eslint-disable-next-line
-            db.collection('user1').doc('input').update({ content: PropertyStore.state.property.content })
+            db.collection('user1').doc('input').update({
+              content: PropertyStore.state.property.content
+            })
           } else {
             event.preventDefault()
             PropertyStore.state.property.content.splice(0, 1)
@@ -118,7 +134,9 @@ document.addEventListener('keydown', function (event) {
               autosize(document.querySelectorAll('textarea'))
             })
             // eslint-disable-next-line
-            db.collection('user1').doc('input').update({ content: PropertyStore.state.property.content })
+            db.collection('user1').doc('input').update({
+              content: PropertyStore.state.property.content
+            })
           }
         }
       }

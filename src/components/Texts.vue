@@ -1,10 +1,10 @@
 <template>
   <div>
-    <LoggedInHeader></LoggedInHeader>
+    <LoggedInHeader v-bind:animation-state="animState"></LoggedInHeader>
     <div id="texts">
       <div class="text" v-for="(input, index) in sharedState.state.property.content" :key="input.id">
         <Border :content-index="index" v-bind:id="index"></Border>
-        <CustomInput :content-index="index" v-bind:id="index"></CustomInput>
+        <CustomInput :content-index="index" v-bind:id="index" v-on:synced-event="onSyncedEvent" v-on:unsaved-event="onUnsavedEvent"></CustomInput>
       </div>
       <div class="text">
         <BorderLast></BorderLast>
@@ -34,8 +34,17 @@ export default {
   },
   data: function() {
     return {
-      sharedState: PropertyStore
+      sharedState: PropertyStore,
+      animState: "saved"
     };
+  },
+  methods: {
+    onSyncedEvent: function () {
+      this.animState = "saved"
+    },
+    onUnsavedEvent: function () {
+      this.animState = "unsaved" 
+    }
   }
 };
 </script>
