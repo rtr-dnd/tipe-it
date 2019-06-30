@@ -2,7 +2,7 @@
 <div class="line-wrapper">
   <div class="line" v-if="contentIndex!=0" v-on:click="add(contentIndex)" 
       v-bind:id="'border-'+contentIndex">
-    <div class="add-item">+</div>
+    <div class="add-item">+<span class="shortcut-text">⌘ + M / Ctrl + M</span></div>
   </div>
   <div class="line line-top" v-if="contentIndex==0" v-on:click="add(contentIndex)" 
       v-bind:id="'border-'+contentIndex">
@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .none {
   display: none;
   opacity: 0;
@@ -68,11 +68,19 @@ export default {
     opacity: 0;
     transition: opacity 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     transition-delay: 0.1s;
-    color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.5);
     vertical-align: middle;
   }
+  .shortcut-text {
+    margin-left: 16px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.3);
+    transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    vertical-align: middle;
+    text-align: right;
+  }
   &:hover{
-    height: 64px;
+    height: 72px;
     margin-bottom: 16px;
     border-color: rgba(0, 0, 0, 0.1) transparent;
     .add-item{
