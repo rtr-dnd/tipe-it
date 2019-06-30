@@ -5,13 +5,15 @@
         <img id="logo" src="../assets/logo.svg" alt>
       </div>
     </div>
+    <div class="error-message" v-show="statusInt==4">Disconnected</div>
     <div id="status-wrapper" v-on:mouseover="hover" v-on:mouseleave="unhover">
-      <Saved v-if="statusInt==0"></Saved>
-      <Unsaved v-if="statusInt==1"></Unsaved>
-      <Hover v-if="statusInt==2"></Hover>
-      <Unhover v-if="statusInt==3"></Unhover>
-      <Error v-if="statusInt==4"></Error>
-      <md-tooltip>Saved to cloud</md-tooltip>
+      <Saved ref="saved" v-show="statusInt==0"></Saved>
+      <Unsaved ref="unsaved" v-show="statusInt==1"></Unsaved>
+      <Hover ref="hover" v-show="statusInt==2"></Hover>
+      <Unhover ref="unhover" v-show="statusInt==3"></Unhover>
+      <Error ref="error" v-show="statusInt==4"></Error>
+      <md-tooltip v-show="statusInt!=4">Saved to cloud</md-tooltip>
+      <md-tooltip v-show="statusInt==4">Couldn't save. Start typing after connecting, or try reload.</md-tooltip>
     </div>
     <md-menu md-size="medium" md-direction="bottom-start">
       <md-button class="md-icon-button" md-menu-trigger>
@@ -42,6 +44,7 @@ import Unsaved from "./Unsaved";
 import Hover from "./Hover";
 import Unhover from "./Unhover";
 import ErrorAnim from "./Error";
+import Lottie from 'vue-lottie';
 
 Vue.use(MdButton);
 Vue.use(MdContent);
@@ -73,24 +76,40 @@ export default {
   },
   data: function() {
     return {
-      statusInt: 0
+      statusInt: 0,
+      initialStatus: 1
     };
   },
   watch: {
     animationState: function(newState, oldState) {
       if (newState == "saved") {
         this.statusInt = 0;
+        this.$refs.saved.restart();
       } else if (newState == "unsaved") {
         this.statusInt = 1;
+        this.$refs.unsaved.restart();
+      } else if (newState == "error") {
+        if(this.initialStatus == 1){
+          this.initialStatus = 0;
+        } else {
+          this.statusInt = 4;
+          this.$refs.error.restart();
+        }
       }
     }
   },
   methods: {
     hover: function() {
-      this.statusInt = 2;
+      if (this.statusInt != 4){
+        this.statusInt = 2;
+        this.$refs.hover.restart();
+      }
     },
     unhover: function() {
-      this.statusInt = 3;
+      if (this.statusInt != 4){
+        this.statusInt = 3;
+        this.$refs.unhover.restart();
+      }
     }
   }
 };
@@ -139,11 +158,14 @@ li {
 .logo-wrapper {
   flex-grow: 1;
 }
-.md-tooltip{
+.md-tooltip {
   font-size: 12px;
-  background-color: rgba(255,255,255,0.8) !important;
-  color: rgba(0,0,0,0.5);
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: rgba(0, 0, 0, 0.5);
   border: 1px solid !important;
   border-color: rgba(0, 0, 0, 0.1) !important;
+}
+.error-message{
+  color: #c62828;
 }
 </style>

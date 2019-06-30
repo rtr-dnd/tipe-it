@@ -17,6 +17,7 @@
     "@material/menu": "^3.0.0",
     "autosize": "^4.0.2",
     "firebase": "^6.2.1",
+    "hotkeys-js": "^3.6.11",
     "lottie-web": "^5.5.5",
     "material-components-vue": "^1.0.2",
     "node-sass-import": "^2.0.1",

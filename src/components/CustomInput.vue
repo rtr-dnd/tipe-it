@@ -30,14 +30,6 @@ import { setTimeout, clearTimeout } from "timers";
 var timerIsSet = false;
 var timerId;
 var timerId2;
-var syncDb = function() {
-  firebase.auth().onAuthStateChanged(function(user) {
-    // eslint-disable-next-line
-    db.collection("users")
-      .doc(user.uid)
-      .update({ content: PropertyStore.state.property.content });
-  });
-};
 
 export default {
   name: "CustomInput",
@@ -55,14 +47,22 @@ export default {
     sync: function() {
       if (timerIsSet) {
         clearTimeout(timerId);
-        clearTimeout(timerId2);
       }
-      timerId = setTimeout(syncDb, 500);
-      timerId2 = setTimeout(() => {
-        this.$emit("synced-event");
+      timerId = setTimeout(() => {
+        var connectedRef = firebase.database().ref(".info/connected");
+        connectedRef.on("value", snap => {
+          if (snap.val() === true) {
+            this.$emit("synced-event");
+            db.collection("users")
+              .doc(firebase.auth().currentUser.uid)
+              .update({ content: PropertyStore.state.property.content });
+          } else {
+            this.$emit("error-event");
+          }
+        });
       }, 500);
       timerIsSet = true;
-      this.$emit("unsaved-event")
+      this.$emit("unsaved-event");
     }
   }
 };

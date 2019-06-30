@@ -1,5 +1,5 @@
 <template>
-  <div class="lottie-wrapper" v-on:click="hover">
+  <div class="lottie-wrapper">
     <lottie
       id="savedanim"
       class="status"
@@ -31,7 +31,7 @@ export default {
     handleAnimation: function(anim) {
       this.anim = anim;
     },
-    hover: function() {
+    restart: function() {
       this.anim.goToAndPlay(0, true);
     }
   }

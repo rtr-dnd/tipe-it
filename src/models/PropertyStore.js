@@ -2,7 +2,8 @@ var PropertyStore = {
   state: {
     property: {
       content: []
-    }
+    },
+    animState: 0
   }
 }
 

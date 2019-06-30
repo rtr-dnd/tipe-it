@@ -4,7 +4,12 @@
     <div id="texts">
       <div class="text" v-for="(input, index) in sharedState.state.property.content" :key="input.id">
         <Border :content-index="index" v-bind:id="index"></Border>
-        <CustomInput :content-index="index" v-bind:id="index" v-on:synced-event="onSyncedEvent" v-on:unsaved-event="onUnsavedEvent"></CustomInput>
+        <CustomInput
+          :content-index="index"
+          v-bind:id="index"
+          v-on:synced-event="onSyncedEvent"
+          v-on:unsaved-event="onUnsavedEvent"
+          v-on:error-event="onErrorEvent"></CustomInput>
       </div>
       <div class="text">
         <BorderLast></BorderLast>
@@ -28,6 +33,7 @@ Vue.component("LoggedInHeader", LoggedInHeader);
 export default {
   name: "Texts",
   components: {
+    LoggedInHeader,
     Border,
     BorderLast,
     CustomInput
@@ -44,6 +50,9 @@ export default {
     },
     onUnsavedEvent: function () {
       this.animState = "unsaved" 
+    },
+    onErrorEvent: function() {
+      this.animState = "error"
     }
   }
 };

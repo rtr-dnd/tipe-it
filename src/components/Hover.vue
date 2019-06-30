@@ -7,6 +7,7 @@
       :height="28"
       :width="28"
       v-on:animCreated="handleAnimation"
+      v-on:click="restart"
     />
   </div>
 </template>
@@ -30,6 +31,9 @@ export default {
   methods: {
     handleAnimation: function(anim) {
       this.anim = anim;
+    },
+    restart: function() {
+      this.anim.goToAndPlay(0, true);
     }
   }
 };

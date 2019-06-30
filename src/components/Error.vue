@@ -30,6 +30,9 @@ export default {
   methods: {
     handleAnimation: function(anim) {
       this.anim = anim;
+    },
+    restart: function() {
+      this.anim.goToAndPlay(0, true);
     }
   }
 };

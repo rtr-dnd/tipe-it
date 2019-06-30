@@ -75,6 +75,28 @@ var thisApp = new Vue({
             autosize(document.querySelectorAll('textarea'))
           })
         })
+        Mousetrap.bindGlobal(['command+m'], function (e) {
+          var tempid = document.activeElement.id
+          var tempidnum
+          if (tempid.slice(0, 9) === 'titlearea') {
+            tempidnum = tempid.slice(10)
+            PropertyStore.state.property.content.splice(tempidnum + 1, 0, {text: '', title: ''})
+          } else if (tempid.slice(0, 8) === 'textarea') {
+            tempidnum = tempid.slice(9)
+            PropertyStore.state.property.content.splice(tempidnum + 1, 0, {text: '', title: ''})
+          }
+          // eslint-disable-next-line
+          db.collection('users').doc(user.uid).update({
+            content: PropertyStore.state.property.content
+          })
+          thisApp.$nextTick(function () {
+            // eslint-disable-next-line
+            autosize.update((document.querySelectorAll('textarea')))
+            autosize(document.querySelectorAll('textarea'))
+            document.getElementById('textarea-' + (parseInt(tempidnum) + 1)).focus()
+          })
+          return false
+        })
       }
     })
   }
@@ -88,15 +110,18 @@ document.addEventListener('keydown', function (event) {
       if (tempid.slice(0, 9) === 'titlearea') {
         event.preventDefault()
         var tempidnum = tempid.slice(10)
+        console.log(PropertyStore.state.property.content)
         // eslint-disable-next-line
-        if (tempidnum == PropertyStore.state.property.content.length - 1) {
-          PropertyStore.state.property.content.push({
-            text: '',
-            title: ''
-          })
-        }
+        PropertyStore.state.property.content.splice(tempidnum, 0, {text: '', title: ''})
+        console.log(PropertyStore.state.property.content)
+        // eslint-disable-next-line
+        db.collection('users').doc(firebase.auth().currentUser.uid).update({
+          content: PropertyStore.state.property.content
+        })
+        console.log(tempidnum)
         thisApp.$nextTick(function () {
           // eslint-disable-next-line
+          autosize.update((document.querySelectorAll('textarea')))          
           autosize(document.querySelectorAll('textarea'))
           document.getElementById('textarea-' + (parseInt(tempidnum) + 1)).focus()
         })
@@ -120,7 +145,7 @@ document.addEventListener('keydown', function (event) {
               autosize(document.querySelectorAll('textarea'))
             })
             // eslint-disable-next-line
-            db.collection('user1').doc('input').update({
+            db.collection('users').doc(firebase.auth().currentUser.uid).update({
               content: PropertyStore.state.property.content
             })
           } else {
@@ -134,7 +159,7 @@ document.addEventListener('keydown', function (event) {
               autosize(document.querySelectorAll('textarea'))
             })
             // eslint-disable-next-line
-            db.collection('user1').doc('input').update({
+            db.collection('users').doc(firebase.auth().currentUser.uid).update({
               content: PropertyStore.state.property.content
             })
           }
