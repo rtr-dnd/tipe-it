@@ -61,6 +61,7 @@ export default {
   transition-delay: 0.1s;
   align-items: center;
   .add-item{
+    cursor: pointer;
     width: 100%;
     // text-align: center;
     font-size: 20px;

@@ -58,6 +58,7 @@ export default {
   transition-delay: 0.1s;
   align-items: center;
   .add-item {
+    cursor: pointer;
     width: 100%;
     display: inline-block;
     line-height: 64px;
