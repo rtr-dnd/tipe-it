@@ -1,14 +1,24 @@
 <template>
   <header>
     <div class="bg-white">
-      <img src="../assets/logo.svg" alt="">
+      <img id="logo" src="../assets/logo.svg" alt="">
     </div>
+    <div id="language" v-on:click="lang">{{ $t("nlih.language") }}</div>
   </header>
 </template>
 
 <script>
 export default {
-  name: 'NotLoggedInHeader'
+  name: 'NotLoggedInHeader',
+  methods: {
+    lang: function () {
+      if (this.$i18n.locale === 'ja') {
+        this.$i18n.locale = 'en'
+      } else {
+        this.$i18n.locale = 'ja'
+      }
+    }
+  }
 }
 </script>
 
@@ -27,8 +37,13 @@ header{
   display: inline-block;
   background-color: rgba(255, 255, 255, 0.8);
 }
-img{
+#logo{
   margin: 16px;
   height: 32px;
+}
+#language{
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  margin-right: 24px;
 }
 </style>

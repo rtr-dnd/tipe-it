@@ -5,23 +5,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Tipe | Editor made simpler</title>
-  <meta name="description" content="Tipeは、どの端末からでも書けるノートです。データはクラウドに自動保存。面倒なフォルダ分けも一切なし。書くことだけに集中して。" />
-  <link rel="icon" href="./src/assets/fabicon.png" sizes="16x16" type="image/png" />
-  <link rel="icon" href="./src/assets/fabicon.png" sizes="32x32" type="image/png" />
-  <link rel="icon" href="./src/assets/fabicon.png" sizes="48x48" type="image/png" />
-  <link rel="icon" href="./src/assets/fabicon.png" sizes="62x62" type="image/png" />
+  <meta name="description" content="Tipeは、「タイトルをあとに書く」ノートアプリです。" />
+  <link rel="icon" href="/static/fabicon.png" sizes="62x62" type="image/png" />
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|Roboto&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta property="og:url" content="https://tipe-it.web.app" />
   <meta property="og:title" content="Tipe | Editor made simpler" />
-  <meta property="og:description" content="Tipeは、どの端末からでも書けるノートです。データはクラウドに自動保存。面倒なフォルダ分けも一切なし。書くことだけに集中して。" />
-  <meta property="og:image" content="./src/assets/ogp.png" />
+  <meta property="og:description" content="Tipeは、「タイトルをあとに書く」ノートアプリです。" />
+  <meta property="og:image" content="/static/ogp.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
 
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.6.3/mousetrap.min.js" integrity="sha256-/pxd2mYaumhh+5DSWHXAgtk2cqSHeQRyPV2sUFnuekU=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.6.3/plugins/global-bind/mousetrap-global-bind.min.js" integrity="sha256-9nbLbhyVhsFCvtD9VUqA/Sxk+0Io1A50/kpyJflDW5w=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.6.3/mousetrap.min.js"
+    integrity="sha256-/pxd2mYaumhh+5DSWHXAgtk2cqSHeQRyPV2sUFnuekU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.6.3/plugins/global-bind/mousetrap-global-bind.min.js"
+    integrity="sha256-9nbLbhyVhsFCvtD9VUqA/Sxk+0Io1A50/kpyJflDW5w=" crossorigin="anonymous"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase.js"></script>
 
   <script type="text/javascript">
@@ -46,11 +47,7 @@
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-        //firebase.auth.GithubAuthProvider.PROVIDER_ID,
-        //firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        //firebase.auth.PhoneAuthProvider.PROVIDER_ID
+        firebase.auth.TwitterAuthProvider.PROVIDER_ID
       ],
       // Terms of service url.
       tosUrl: ''
@@ -84,9 +81,15 @@
     };
     var deleteAccount = function () {
       var user = firebase.auth().currentUser;
-      console.log(user.uid);
       var credential;
-      var provider = new firebase.auth.GoogleAuthProvider();
+      var provider;
+      user.providerData.forEach((profile) => {
+        if (profile.providerId === 'google.com') {
+          provider = new firebase.auth.GoogleAuthProvider();
+        } else if (profile.providerId === 'twitter.com') {
+          provider = new firebase.auth.TwitterAuthProvider();
+        }
+      })
       firebase.auth().signInWithPopup(provider).then(function (result) {
         // This gives you a Google Access Token. You can use it to access the Google API.
         credential = result.credential;
@@ -96,7 +99,6 @@
             console.log('document deleted')
             user.delete()
           })
-          // location.pathname = "/get-started"
         })
       })
     };
@@ -108,7 +110,7 @@
 <body>
   <div id="app"></div>
   <!-- built files will be auto injected -->
-  
+
 </body>
 
 </html>

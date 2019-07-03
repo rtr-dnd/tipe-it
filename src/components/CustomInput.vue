@@ -4,7 +4,7 @@
       v-model="sharedState.state.property.content[contentIndex].text"
       v-on:input="sync"
       v-bind:name="'textarea-'+contentIndex"
-      placeholder="Jot something down..."
+      v-bind:placeholder="jotSomethingDown"
       v-bind:id="'textarea-'+contentIndex"
       autocomplete="nope"
     ></textarea>
@@ -14,7 +14,7 @@
         v-if="sharedState.state.property.content[contentIndex].text!=''"
         v-model="sharedState.state.property.content[contentIndex].title"
         v-on:input="sync"
-        placeholder="Add a title"
+        v-bind:placeholder="addATitle"
         v-bind:id="'titlearea-'+contentIndex"
         autocomplete="off"
       >
@@ -40,7 +40,9 @@ export default {
   },
   data: function() {
     return {
-      sharedState: PropertyStore
+      sharedState: PropertyStore,
+      jotSomethingDown: this.$t("ci.jotsomethingdown"),
+      addATitle: this.$t("ci.addatitle")
     };
   },
   methods: {
@@ -60,7 +62,7 @@ export default {
             this.$emit("error-event");
           }
         });
-      }, 500);
+      }, 1500);
       timerIsSet = true;
       this.$emit("unsaved-event");
     }
@@ -98,7 +100,6 @@ textarea {
 input {
   width: 100%;
   position: sticky;
-  top: 70vh;
   color: rgba(0, 0, 0, 0.4);
   font-size: 18px;
   outline: none;
@@ -107,6 +108,14 @@ input {
 
   &::placeholder {
     color: rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 600px) {
+    top: 70vh;
+  }
+
+  @media (min-width: 600px) {
+    top: 70vh;
   }
 }
 </style>

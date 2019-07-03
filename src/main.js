@@ -6,11 +6,35 @@ import App from './App'
 import autosize from 'autosize'
 import PropertyStore from './models/PropertyStore'
 import router from './router'
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n)
 
 Vue.config.productionTip = false
 
+const messages = require('./assets/lang.json')
+
+if (window.location.pathname === '/' | window.location.pathname === '/get-started') {
+  if (navigator.language === 'ja' | 'ja-JP') {
+    var currentLocale = 'ja'
+  } else {
+    var currentLocale = 'en'
+  }
+} else if (window.location.pathname === '/ja') {
+  var currentLocale = 'ja'
+} else if (window.location.pathname === '/en') {
+  var currentLocale = 'en'
+}
+console.log(currentLocale)
+
+const i18n = new VueI18n({
+  locale: currentLocale, // set locale
+  messages // set locale messages
+})
+
 /* eslint-disable no-new */
 var thisApp = new Vue({
+  i18n,
   router: router,
   el: '#app',
   components: {

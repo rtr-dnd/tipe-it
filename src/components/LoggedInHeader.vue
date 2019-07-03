@@ -12,8 +12,8 @@
       <Hover ref="hover" v-show="statusInt==2"></Hover>
       <Unhover ref="unhover" v-show="statusInt==3"></Unhover>
       <Error ref="error" v-show="statusInt==4"></Error>
-      <md-tooltip v-show="statusInt!=4">Saved to cloud</md-tooltip>
-      <md-tooltip v-show="statusInt==4">Couldn't save. Start typing after connecting, or try reload.</md-tooltip>
+      <md-tooltip v-show="statusInt!=4">{{ $t("lih.savedtocloud") }}</md-tooltip>
+      <md-tooltip v-show="statusInt==4">{{ $t("lih.couldntsave") }}</md-tooltip>
     </div>
     <md-menu md-size="medium" md-direction="bottom-start">
       <md-button class="md-icon-button" md-menu-trigger>
@@ -21,8 +21,12 @@
       </md-button>
 
       <md-menu-content class="md-elevation-1">
-        <md-menu-item id="signout" onclick="signout()">Sign out</md-menu-item>
-        <md-menu-item id="delete" onclick="deleteAccount()">Delete account</md-menu-item>
+        <md-menu-item id="language" v-on:click="lang"> {{ $t("lih.language") }}</md-menu-item>
+        <md-menu-item id="aboutme">
+          <a href="https://twitter.com/rtr_dnd">{{ $t("lih.aboutme") }}</a>
+        </md-menu-item>
+        <md-menu-item id="signout" onclick="signout()">{{ $t("lih.signout") }}</md-menu-item>
+        <md-menu-item id="delete" onclick="deleteAccount()">{{ $t("lih.deleteaccount") }}</md-menu-item>
       </md-menu-content>
     </md-menu>
   </header>
@@ -44,7 +48,7 @@ import Unsaved from "./Unsaved";
 import Hover from "./Hover";
 import Unhover from "./Unhover";
 import ErrorAnim from "./Error";
-import Lottie from 'vue-lottie';
+import Lottie from "vue-lottie";
 
 Vue.use(MdButton);
 Vue.use(MdContent);
@@ -89,7 +93,7 @@ export default {
         this.statusInt = 1;
         this.$refs.unsaved.restart();
       } else if (newState == "error") {
-        if(this.initialStatus == 1){
+        if (this.initialStatus == 1) {
           this.initialStatus = 0;
         } else {
           this.statusInt = 4;
@@ -100,15 +104,22 @@ export default {
   },
   methods: {
     hover: function() {
-      if (this.statusInt != 4){
+      if (this.statusInt != 4) {
         this.statusInt = 2;
         this.$refs.hover.restart();
       }
     },
     unhover: function() {
-      if (this.statusInt != 4){
+      if (this.statusInt != 4) {
         this.statusInt = 3;
         this.$refs.unhover.restart();
+      }
+    },
+    lang: function() {
+      if (this.$i18n.locale === "ja") {
+        window.location.pathname = "/en";
+      } else {
+        window.location.pathname = "/ja";
       }
     }
   }
@@ -128,6 +139,15 @@ export default {
 .md-icon-button {
   color: rgba(0, 0, 0, 0.25);
 }
+#aboutme {
+  a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.6);
+    &:hover {
+      text-decoration: !important;
+    }
+  }
+}
 #delete {
   color: #c62828;
 }
@@ -142,6 +162,7 @@ header {
   z-index: 10;
 }
 li {
+  font-size: 16px;
   list-style: none;
   color: rgba(0, 0, 0, 0.6);
   cursor: pointer;
@@ -165,7 +186,7 @@ li {
   border: 1px solid !important;
   border-color: rgba(0, 0, 0, 0.1) !important;
 }
-.error-message{
+.error-message {
   color: #c62828;
 }
 </style>

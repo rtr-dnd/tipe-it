@@ -1,0 +1,47 @@
+{
+  "en": {
+    "li": {
+      "h1": "Write with ease.",
+      "description": "Tipe is a note-taking app, which allow you to write titles last."
+    },
+    "nlih": {
+      "language": "Japanese"
+    },
+    "ci": {
+      "jotsomethingdown": "Jot something down...",
+      "addatitle": "Add a title"
+    },
+    "lih": {
+      "disconnected": "Disconncected",
+      "savedtocloud": "Saved to cloud",
+      "couldntsave": "Couldn't save. Start typing after connecting, or try reload.",
+      "language": "Japanese",
+      "signout": "Sign out",
+      "deleteaccount": "Delete account",
+      "aboutme": "About me"
+    }
+  },
+
+  "ja": {
+    "li": {
+      "h1": "気楽に書こう。なんでも書こう。",
+      "description": "Tipeは、「タイトルをあとに書く」ノートアプリです。"
+    },
+    "nlih": {
+      "language": "English"
+    },
+    "ci": {
+      "jotsomethingdown": "なにか書いてみよう...",
+      "addatitle": "タイトル"
+    },
+    "lih": {
+      "disconnected": "接続なし",
+      "savedtocloud": "クラウドに保存済み",
+      "couldntsave": "保存できません。インターネットに接続してから入力を続けるか、再読み込みしてください。",
+      "language": "English",
+      "signout": "サインアウト",
+      "deleteaccount": "アカウントを削除",
+      "aboutme": "制作者について"
+    }
+  }
+}

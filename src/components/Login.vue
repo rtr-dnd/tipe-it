@@ -1,62 +1,77 @@
 <template>
-<div>
-  <NotLoggedInHeader></NotLoggedInHeader>
-  <div class="heading">
-    <h1>気楽に書こう。なんでも書こう。</h1>
-    <div class="heading-description">
-      Tipeは、「タイトルをあとに書く」ノートです。
+  <div>
+    <NotLoggedInHeader></NotLoggedInHeader>
+    <div class="heading">
+      <div class="flex-inner">
+        <h1>{{ $t("li.h1") }}</h1>
+        <div class="heading-description">{{ $t("li.description") }}</div>
+        <div id="firebaseui-auth-container"></div>
+      </div>
     </div>
-    <div id="firebaseui-auth-container"></div>
-  </div>
+    <!--
   <section class="intro">
     <h2>Tipeとは</h2>
     <div class="description">
       どの端末からでも、さっと気軽に書き込めて、自動的にクラウドに保存できるノートがほしい。
       そんな思いからTipeは生まれました。
     </div>
-  </section>
-</div>
+    </section>-->
+  </div>
 </template>
 
 <script>
-import NotLoggedInHeader from "./NotLoggedInHeader"
+import NotLoggedInHeader from "./NotLoggedInHeader";
 export default {
-    name: 'Login',
-    components: {
-      NotLoggedInHeader
+  name: "Login",
+  components: {
+    NotLoggedInHeader
+  },
+  methods: {
+    onclick: function () {
+      console.log(this.$i18n.locale)
     }
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-.heading{
-  padding: 30vh 32px;
-  padding-bottom: 20vh;
+.heading {
+  line-height: 1.5em;
+  padding: 0 32px;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  // padding-bottom: 20vh;
 }
-.heading-description{
+.flex-inner {
+  margin: 0 auto;
+}
+.heading-description {
   text-align: center;
 }
-h1{
-  font-size: 24px;
+h1 {
+  line-height: 1.5em;
+  font-size: 28px;
   font-weight: 200;
   color: rgba(0, 0, 0, 0.8);
   margin: 0 auto;
   text-align: center;
   margin-bottom: 32px;
 }
-#firebaseui-auth-container{
+#firebaseui-auth-container {
   margin-top: 32px;
 }
-.intro{
+.intro {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 64px;
 }
-h2{
+h2 {
   font-weight: 300;
   text-align: center;
   margin: 32px auto;
 }
-.description{
+.description {
   margin: 0 auto;
   max-width: 640px;
 }

@@ -7,16 +7,25 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [
-    {
-      path: '/get-started',
-      name: 'Get started',
-      component: Login
-    },
-    {
-      path: '/',
-      name: 'Home',
-      component: Texts
-    }
+  routes: [{
+    path: '/get-started',
+    name: 'Get started',
+    component: Login
+  },
+  {
+    path: '/en',
+    name: 'Home-en',
+    component: Texts
+  },
+  {
+    path: '/',
+    name: 'Home',
+    component: Texts
+  },
+  {
+    path: '/ja',
+    name: 'Home-ja',
+    component: Texts
+  }
   ]
 })
