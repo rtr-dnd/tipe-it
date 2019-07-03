@@ -152,14 +152,17 @@ export default {
   color: #c62828;
 }
 header {
-  width: 100vw;
+  width: calc(100vw - 48px);
   position: fixed;
-  padding: 24px;
+  margin: 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
   z-index: 10;
+  @media (max-width: 600px) {
+    background-color: rgba(255, 255, 255, 0.95);
+  }
 }
 li {
   font-size: 16px;
@@ -170,7 +173,10 @@ li {
 }
 .bg-white {
   display: inline-block;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.95);
+  @media (max-width: 600px) {
+    background-color: transparent;
+  }
 }
 #logo {
   margin: 16px;
@@ -181,7 +187,7 @@ li {
 }
 .md-tooltip {
   font-size: 12px;
-  background-color: rgba(255, 255, 255, 0.8) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
   color: rgba(0, 0, 0, 0.5);
   border: 1px solid !important;
   border-color: rgba(0, 0, 0, 0.1) !important;

@@ -25,7 +25,6 @@ if (window.location.pathname === '/' | window.location.pathname === '/get-starte
 } else if (window.location.pathname === '/en') {
   var currentLocale = 'en'
 }
-console.log(currentLocale)
 
 const i18n = new VueI18n({
   locale: currentLocale, // set locale
@@ -88,7 +87,6 @@ var thisApp = new Vue({
               text: '',
               title: ''
             }]
-            console.log(userData)
           } else {
             var userData = doc.data().content
           }

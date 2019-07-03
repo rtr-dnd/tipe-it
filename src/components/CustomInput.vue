@@ -74,6 +74,11 @@ export default {
 .flex-wrapper {
   display: flex;
   margin: 32px;
+
+  @media (max-width: 600px) {
+    position: relative;
+    margin: 32px 8px;
+  }
   // align-items: flex-end;
   // position: relative;
 }
@@ -92,13 +97,26 @@ textarea {
     font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
     font-family: "Roboto", sans-serif;
   }
+
+  @media (max-width: 600px) {
+    margin-bottom: 52px;
+  }
 }
 .title-wrapper {
   width: 35%;
   padding-left: 16px;
+  @media (max-width: 600px) {
+    width: 100%;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-left: 0;
+  }
 }
 input {
-  width: 100%;
   position: sticky;
   color: rgba(0, 0, 0, 0.4);
   font-size: 18px;
@@ -111,11 +129,16 @@ input {
   }
 
   @media (max-width: 600px) {
-    top: 70vh;
+    pointer-events: auto;
+    top: calc(100vh - 128px);
+    width: 100%;
+    padding: 16px 12px;
+    background-color: rgba(255, 255, 255, 0.95);
   }
 
   @media (min-width: 600px) {
-    top: 70vh;
+    width: 100%;
+    top: calc(80vh - 80px);
   }
 }
 </style>
