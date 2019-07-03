@@ -70,6 +70,9 @@ export default {
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     color: rgba(0, 0, 0, 0.2);
     vertical-align: middle;
+    @media (max-width: 600px) {
+      margin: 0 12px;
+    }
   }
   .shortcut-text {
     margin-left: 16px;

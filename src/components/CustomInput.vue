@@ -62,7 +62,7 @@ export default {
             this.$emit("error-event");
           }
         });
-      }, 1500);
+      }, 1200);
       timerIsSet = true;
       this.$emit("unsaved-event");
     }
@@ -77,7 +77,7 @@ export default {
 
   @media (max-width: 600px) {
     position: relative;
-    margin: 32px 8px;
+    margin: 32px 8px 16px 8px;
   }
   // align-items: flex-end;
   // position: relative;
@@ -131,7 +131,8 @@ input {
   @media (max-width: 600px) {
     pointer-events: auto;
     top: calc(100vh - 128px);
-    width: 100%;
+    margin-left: 30%;
+    width: 70%;
     padding: 16px 12px;
     background-color: rgba(255, 255, 255, 0.95);
   }

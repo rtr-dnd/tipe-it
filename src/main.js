@@ -31,6 +31,9 @@ const i18n = new VueI18n({
   messages // set locale messages
 })
 
+var ta
+var taheights = []
+
 /* eslint-disable no-new */
 var thisApp = new Vue({
   i18n,
@@ -73,9 +76,18 @@ var thisApp = new Vue({
               thisApp.$nextTick(function () {
                 // eslint-disable-next-line
                 document.getElementById('textarea-' + (userData.length - 1)).focus()
+                ta = document.querySelectorAll('textarea')
                 // eslint-disable-next-line
-                autosize.update((document.querySelectorAll('textarea')))
-                autosize(document.querySelectorAll('textarea'))
+                autosize.update((ta))
+                autosize(ta)
+                taheights = []
+                ta.forEach((taelement) => {
+                  taheights.push(taelement.offsetHeight)
+                  taelement.addEventListener('autosize:resized', function () {
+                    window.scrollBy(0, taelement.offsetHeight - taheights[parseInt(taelement.id.slice(9))])
+                    taheights[parseInt(taelement.id.slice(9))] = taelement.offsetHeight
+                  })
+                })
               })
             })
           })
@@ -92,11 +104,17 @@ var thisApp = new Vue({
           }
           PropertyStore.state.property.content = userData
           thisApp.$nextTick(function () {
+            ta = document.querySelectorAll('textarea')
             // eslint-disable-next-line
-            autosize.update((document.querySelectorAll('textarea')))
-            autosize(document.querySelectorAll('textarea'))
+            autosize.update((ta))
+            autosize(ta)
+            taheights = []
+            ta.forEach((taelement) => {
+              taheights.push(taelement.offsetHeight)
+            })
           })
         })
+
         Mousetrap.bindGlobal(['command+m', 'ctrl+m'], function (e) {
           var tempid = document.activeElement.id
           var tempidnum
@@ -107,16 +125,28 @@ var thisApp = new Vue({
           } else if (tempid == '') {
             tempidnum = PropertyStore.state.property.content.length - 1
           }
-          PropertyStore.state.property.content.splice(parseInt(tempidnum) + 1, 0, {text: '', title: ''})
+          PropertyStore.state.property.content.splice(parseInt(tempidnum) + 1, 0, {
+            text: '',
+            title: ''
+          })
           // eslint-disable-next-line
           db.collection('users').doc(user.uid).update({
             content: PropertyStore.state.property.content
           })
           thisApp.$nextTick(function () {
-            // eslint-disable-next-line
-            autosize.update((document.querySelectorAll('textarea')))
-            autosize(document.querySelectorAll('textarea'))
             document.getElementById('textarea-' + (parseInt(tempidnum) + 1)).focus()
+            ta = document.querySelectorAll('textarea')
+            // eslint-disable-next-line
+            autosize.update((ta))
+            autosize(ta)
+            taheights = []
+            ta.forEach((taelement) => {
+              taheights.push(taelement.offsetHeight)
+              taelement.addEventListener('autosize:resized', function () {
+                window.scrollBy(0, taelement.offsetHeight - taheights[parseInt(taelement.id.slice(9))])
+                taheights[parseInt(taelement.id.slice(9))] = taelement.offsetHeight
+              })
+            })
           })
           return false
         })
@@ -124,16 +154,28 @@ var thisApp = new Vue({
           return false
         })
         Mousetrap.bindGlobal(['command+j', 'ctrl+j'], function (e) {
-          PropertyStore.state.property.content.splice(PropertyStore.state.property.content.length, 0, {text: '', title: ''})
+          PropertyStore.state.property.content.splice(PropertyStore.state.property.content.length, 0, {
+            text: '',
+            title: ''
+          })
           // eslint-disable-next-line
           db.collection('users').doc(user.uid).update({
             content: PropertyStore.state.property.content
           })
           thisApp.$nextTick(function () {
-            // eslint-disable-next-line
-            autosize.update((document.querySelectorAll('textarea')))
-            autosize(document.querySelectorAll('textarea'))
             document.getElementById('textarea-' + (PropertyStore.state.property.content.length - 1)).focus()
+            ta = document.querySelectorAll('textarea')
+            // eslint-disable-next-line
+            autosize.update((ta))
+            autosize(ta)
+            taheights = []
+            ta.forEach((taelement) => {
+              taheights.push(taelement.offsetHeight)
+              taelement.addEventListener('autosize:resized', function () {
+                window.scrollBy(0, taelement.offsetHeight - taheights[parseInt(taelement.id.slice(9))])
+                taheights[parseInt(taelement.id.slice(9))] = taelement.offsetHeight
+              })
+            })
           })
           return false
         })
@@ -151,7 +193,10 @@ document.addEventListener('keydown', function (event) {
         event.preventDefault()
         var tempidnum = tempid.slice(10)
         // eslint-disable-next-line
-        PropertyStore.state.property.content.splice(parseInt(tempidnum) + 1, 0, {text: '', title: ''})
+        PropertyStore.state.property.content.splice(parseInt(tempidnum) + 1, 0, {
+          text: '',
+          title: ''
+        })
         // eslint-disable-next-line
         db.collection('users').doc(firebase.auth().currentUser.uid).update({
           content: PropertyStore.state.property.content
@@ -159,9 +204,19 @@ document.addEventListener('keydown', function (event) {
         console.log(tempidnum)
         thisApp.$nextTick(function () {
           // eslint-disable-next-line
-          autosize.update((document.querySelectorAll('textarea')))          
-          autosize(document.querySelectorAll('textarea'))
           document.getElementById('textarea-' + (parseInt(tempidnum) + 1)).focus()
+          ta = document.querySelectorAll('textarea')
+          // eslint-disable-next-line
+          autosize.update((ta))
+          autosize(ta)
+          taheights = []
+          ta.forEach((taelement) => {
+            taheights.push(taelement.offsetHeight)
+            taelement.addEventListener('autosize:resized', function () {
+              window.scrollBy(0, taelement.offsetHeight - taheights[parseInt(taelement.id.slice(9))])
+              taheights[parseInt(taelement.id.slice(9))] = taelement.offsetHeight
+            })
+          })
         })
       }
       break
@@ -175,12 +230,21 @@ document.addEventListener('keydown', function (event) {
           if (tempidnum != 0) {
             event.preventDefault()
             PropertyStore.state.property.content.splice(tempidnum, 1)
-            document.getElementById('textarea-' + (tempidnum - 1)).focus()
 
             thisApp.$nextTick(function () {
+              document.getElementById('textarea-' + (tempidnum - 1)).focus()
+              ta = document.querySelectorAll('textarea')
               // eslint-disable-next-line
-              autosize.update((document.querySelectorAll('textarea')))
-              autosize(document.querySelectorAll('textarea'))
+              autosize.update((ta))
+              autosize(ta)
+              taheights = []
+              ta.forEach((taelement) => {
+                taheights.push(taelement.offsetHeight)
+                taelement.addEventListener('autosize:resized', function () {
+                  window.scrollBy(0, taelement.offsetHeight - taheights[parseInt(taelement.id.slice(9))])
+                  taheights[parseInt(taelement.id.slice(9))] = taelement.offsetHeight
+                })
+              })
             })
             // eslint-disable-next-line
             db.collection('users').doc(firebase.auth().currentUser.uid).update({

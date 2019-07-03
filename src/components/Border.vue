@@ -60,8 +60,9 @@ export default {
   transition: border-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1), height 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   transition-delay: 0.1s;
   align-items: center;
+  cursor: pointer;
+
   .add-item{
-    cursor: pointer;
     width: 100%;
     // text-align: center;
     font-size: 20px;
@@ -71,6 +72,10 @@ export default {
     transition-delay: 0.1s;
     color: rgba(0, 0, 0, 0.5);
     vertical-align: middle;
+
+    @media (max-width: 600px) {
+      margin: 0 12px;
+    }
   }
   .shortcut-text {
     margin-left: 16px;
