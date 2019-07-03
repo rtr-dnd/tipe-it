@@ -2,19 +2,19 @@
   "en": {
     "li": {
       "h1": "Write with ease.",
-      "description": "Tipe is a note-taking app, which allow you to write titles last."
+      "description": "Tipe is a note-taking app, which allows you to add titles afterwards."
     },
     "nlih": {
       "language": "Japanese"
     },
     "ci": {
-      "jotsomethingdown": "Jot something down...",
+      "jotsomethingdown": "Jot anything down...",
       "addatitle": "Add a title"
     },
     "lih": {
       "disconnected": "Disconncected",
       "savedtocloud": "Saved to cloud",
-      "couldntsave": "Couldn't save. Start typing after connecting, or try reload.",
+      "couldntsave": "Couldn't save. Type again after reconnecting, or try reload.",
       "language": "Japanese",
       "signout": "Sign out",
       "deleteaccount": "Delete account",
