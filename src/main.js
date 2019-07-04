@@ -31,6 +31,18 @@ const i18n = new VueI18n({
   messages // set locale messages
 })
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').then(function (registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope)
+    }, function (err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err)
+    })
+  })
+}
+
 var ta
 var taheights = []
 
@@ -115,7 +127,7 @@ var thisApp = new Vue({
           })
         })
 
-        Mousetrap.bindGlobal(['command+m', 'ctrl+m'], function (e) {
+        Mousetrap.bindGlobal(['command+enter', 'ctrl+enter'], function (e) {
           var tempid = document.activeElement.id
           var tempidnum
           if (tempid.slice(0, 9) === 'titlearea') {
@@ -153,7 +165,7 @@ var thisApp = new Vue({
         Mousetrap.bindGlobal(['command+s', 'ctrl+s'], function (e) {
           return false
         })
-        Mousetrap.bindGlobal(['command+j', 'ctrl+j'], function (e) {
+        Mousetrap.bindGlobal(['command+m', 'ctrl+m'], function (e) {
           PropertyStore.state.property.content.splice(PropertyStore.state.property.content.length, 0, {
             text: '',
             title: ''
@@ -182,6 +194,40 @@ var thisApp = new Vue({
       }
     })
   }
+})
+
+var hiding = false
+window.onresize = function () {
+  if (window.innerWidth < 600) {
+    var tempid = document.activeElement.id
+    if (tempid.slice(0, 8) === 'textarea') {
+      if (window.innerHeight < 450) {
+        console.log('hide titles')
+        document.querySelectorAll('input').forEach((elem) => {
+          elem.style.top = '100vh'
+        })
+        hiding = true
+      } else if (hiding) {
+        document.querySelectorAll('input').forEach((elem) => {
+          elem.style.top = 'calc(100vh - 128px)'
+        })
+        hiding = false
+      }
+    } else if (hiding) {
+      document.querySelectorAll('input').forEach((elem) => {
+        elem.style.top = 'calc(100vh - 128px)'
+      })
+      hiding = false
+    }
+  }
+}
+
+var deferredPrompt
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault()
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e
 })
 
 document.addEventListener('keydown', function (event) {
@@ -233,6 +279,9 @@ document.addEventListener('keydown', function (event) {
 
             thisApp.$nextTick(function () {
               document.getElementById('textarea-' + (tempidnum - 1)).focus()
+              var templ = document.getElementById('textarea-' + (tempidnum - 1)).value.length
+              document.getElementById('textarea-' + (tempidnum - 1)).setSelectionRange(templ, templ)
+
               ta = document.querySelectorAll('textarea')
               // eslint-disable-next-line
               autosize.update((ta))
@@ -278,6 +327,8 @@ document.addEventListener('keydown', function (event) {
           if (tempidnum !== 0) {
             event.preventDefault()
             document.getElementById('textarea-' + (tempidnum - 1)).focus()
+            var templ = document.getElementById('textarea-' + (tempidnum - 1)).value.length
+            document.getElementById('textarea-' + (tempidnum - 1)).setSelectionRange(templ, templ)
           }
         }
       }
@@ -292,6 +343,8 @@ document.addEventListener('keydown', function (event) {
           if (tempidnum !== 0) {
             event.preventDefault()
             document.getElementById('textarea-' + (tempidnum - 1)).focus()
+            var templ = document.getElementById('textarea-' + (tempidnum - 1)).value.length
+            document.getElementById('textarea-' + (tempidnum - 1)).setSelectionRange(templ, templ)
           }
         }
       }

@@ -15,13 +15,13 @@
       <md-tooltip v-show="statusInt!=4">{{ $t("lih.savedtocloud") }}</md-tooltip>
       <md-tooltip v-show="statusInt==4">{{ $t("lih.couldntsave") }}</md-tooltip>
     </div>
-    <md-menu md-size="medium" md-direction="bottom-start">
+    <md-menu class="dropdown" md-size="medium" md-direction="bottom-start">
       <md-button class="md-icon-button" md-menu-trigger>
         <md-icon>more_vert</md-icon>
       </md-button>
 
       <md-menu-content class="md-elevation-1">
-        <md-menu-item id="language" v-on:click="lang"> {{ $t("lih.language") }}</md-menu-item>
+        <md-menu-item id="language" v-on:click="lang">{{ $t("lih.language") }}</md-menu-item>
         <md-menu-item id="aboutme">
           <a href="https://twitter.com/rtr_dnd">{{ $t("lih.aboutme") }}</a>
         </md-menu-item>
@@ -163,6 +163,9 @@ header {
   @media (max-width: 600px) {
     background-color: rgba(255, 255, 255, 0.95);
   }
+  @media (min-width: 600px) {
+    pointer-events: none;
+  }
 }
 li {
   font-size: 16px;
@@ -193,6 +196,13 @@ li {
   border-color: rgba(0, 0, 0, 0.1) !important;
 }
 .error-message {
+  pointer-events: auto;
   color: #c62828;
+}
+#status-wrapper {
+  pointer-events: auto;
+}
+.dropdown {
+  pointer-events: auto;
 }
 </style>

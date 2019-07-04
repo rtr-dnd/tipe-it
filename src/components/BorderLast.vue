@@ -1,7 +1,7 @@
 <template>
   <div class="line-wrapper">
     <div class="line" v-on:click="add()" v-bind:id="'border-last'">
-      <div class="add-item">+ <span class="shortcut-text">⌘ + J / Ctrl + J</span> </div>
+      <div class="add-item">+ <span class="shortcut-text">⌘ + M / Ctrl + M</span> </div>
     </div>
   </div>
 </template>
