@@ -8,6 +8,18 @@ import PropertyStore from './models/PropertyStore'
 import router from './router'
 import VueI18n from 'vue-i18n'
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').then(function (registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope)
+    }, function (err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err)
+    })
+  })
+}
+
 Vue.use(VueI18n)
 
 Vue.config.productionTip = false
@@ -30,18 +42,6 @@ const i18n = new VueI18n({
   locale: currentLocale, // set locale
   messages // set locale messages
 })
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/sw.js').then(function (registration) {
-      // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope)
-    }, function (err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err)
-    })
-  })
-}
 
 var ta
 var taheights = []
@@ -74,7 +74,6 @@ var thisApp = new Vue({
                   text: '',
                   title: ''
                 }]
-                console.log(userData)
               } else {
                 userData = doc.data().content
                 if (userData[userData.length - 1].text != '' && userData[userData.length - 1].title != '') {
@@ -202,7 +201,6 @@ window.onresize = function () {
     var tempid = document.activeElement.id
     if (tempid.slice(0, 8) === 'textarea') {
       if (window.innerHeight < 450) {
-        console.log('hide titles')
         document.querySelectorAll('input').forEach((elem) => {
           elem.style.top = '100vh'
         })
@@ -222,14 +220,6 @@ window.onresize = function () {
   }
 }
 
-var deferredPrompt
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent Chrome 67 and earlier from automatically showing the prompt
-  e.preventDefault()
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e
-})
-
 document.addEventListener('keydown', function (event) {
   var KeyID = event.keyCode
   switch (KeyID) {
@@ -247,7 +237,6 @@ document.addEventListener('keydown', function (event) {
         db.collection('users').doc(firebase.auth().currentUser.uid).update({
           content: PropertyStore.state.property.content
         })
-        console.log(tempidnum)
         thisApp.$nextTick(function () {
           // eslint-disable-next-line
           document.getElementById('textarea-' + (parseInt(tempidnum) + 1)).focus()

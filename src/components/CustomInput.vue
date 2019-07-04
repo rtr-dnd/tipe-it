@@ -99,6 +99,7 @@ textarea {
   }
 
   @media (max-width: 600px) {
+    font-size: 13px;
     margin-bottom: 52px;
   }
 }

@@ -18,7 +18,8 @@
       "language": "Japanese",
       "signout": "Sign out",
       "deleteaccount": "Delete account",
-      "aboutme": "About me"
+      "aboutme": "About me",
+      "addtohome": "Add to home screen"
     }
   },
 
@@ -41,7 +42,8 @@
       "language": "English",
       "signout": "サインアウト",
       "deleteaccount": "アカウントを削除",
-      "aboutme": "制作者について"
+      "aboutme": "制作者について",
+      "addtohome": "ホーム画面に追加"
     }
   }
 }

@@ -20,11 +20,11 @@
         <md-icon>more_vert</md-icon>
       </md-button>
 
-      <md-menu-content class="md-elevation-1">
-        <md-menu-item id="language" v-on:click="lang">{{ $t("lih.language") }}</md-menu-item>
+      <md-menu-content class="md-elevation-1">      
         <md-menu-item id="aboutme">
           <a href="https://twitter.com/rtr_dnd">{{ $t("lih.aboutme") }}</a>
         </md-menu-item>
+        <md-menu-item id="language" v-on:click="lang">{{ $t("lih.language") }}</md-menu-item>
         <md-menu-item id="signout" onclick="signout()">{{ $t("lih.signout") }}</md-menu-item>
         <md-menu-item id="delete" onclick="deleteAccount()">{{ $t("lih.deleteaccount") }}</md-menu-item>
       </md-menu-content>
@@ -100,7 +100,7 @@ export default {
           this.$refs.error.restart();
         }
       }
-    }
+    },
   },
   methods: {
     hover: function() {
@@ -162,6 +162,8 @@ header {
   z-index: 10;
   @media (max-width: 600px) {
     background-color: rgba(255, 255, 255, 0.95);
+    margin: 12px;
+    width: calc(100vw - 24px);
   }
   @media (min-width: 600px) {
     pointer-events: none;
@@ -184,6 +186,9 @@ li {
 #logo {
   margin: 16px;
   height: 32px;
+  @media (max-width: 600px) {
+    margin: 20px;
+  }
 }
 .logo-wrapper {
   flex-grow: 1;

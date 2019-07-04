@@ -18,6 +18,7 @@
   <meta property="og:image" content="/static/ogp.png" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="128x128" href="/static/ios-icon.png">
 
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
@@ -105,6 +106,14 @@
         })
       })
     };
+
+    var deferredPrompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      e.preventDefault()
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e
+    })
 
   </script>
   <title>vue-editor</title>
