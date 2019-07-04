@@ -102,6 +102,9 @@ textarea {
     font-size: 13px;
     margin-bottom: 52px;
   }
+  @supports (-webkit-overflow-scrolling: touch) {
+    font-size: 16px;
+  }
 }
 .title-wrapper {
   width: 35%;

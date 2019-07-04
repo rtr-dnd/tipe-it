@@ -6,11 +6,9 @@
       </div>
     </div>
     <div class="error-message" v-show="statusInt==4">Disconnected</div>
-    <div id="status-wrapper" v-on:mouseover="hover" v-on:mouseleave="unhover">
+    <div id="status-wrapper">
       <Saved ref="saved" v-show="statusInt==0"></Saved>
       <Unsaved ref="unsaved" v-show="statusInt==1"></Unsaved>
-      <Hover ref="hover" v-show="statusInt==2"></Hover>
-      <Unhover ref="unhover" v-show="statusInt==3"></Unhover>
       <Error ref="error" v-show="statusInt==4"></Error>
       <md-tooltip v-show="statusInt!=4">{{ $t("lih.savedtocloud") }}</md-tooltip>
       <md-tooltip v-show="statusInt==4">{{ $t("lih.couldntsave") }}</md-tooltip>
@@ -103,18 +101,6 @@ export default {
     },
   },
   methods: {
-    hover: function() {
-      if (this.statusInt != 4) {
-        this.statusInt = 2;
-        this.$refs.hover.restart();
-      }
-    },
-    unhover: function() {
-      if (this.statusInt != 4) {
-        this.statusInt = 3;
-        this.$refs.unhover.restart();
-      }
-    },
     lang: function() {
       if (this.$i18n.locale === "ja") {
         window.location.pathname = "/en";
