@@ -2,7 +2,7 @@
 <div class="line-wrapper">
   <div class="line" v-if="contentIndex!=0" v-on:click="add(contentIndex)" 
       v-bind:id="'border-'+contentIndex">
-    <div class="add-item">+<span class="shortcut-text">⌘ + Enter / Ctrl + Enterr</span></div>
+    <div class="add-item">+<span class="shortcut-text">⌘ + Enter / Ctrl + Enter</span></div>
   </div>
   <div class="line line-top" v-if="contentIndex==0" v-on:click="add(contentIndex)" 
       v-bind:id="'border-'+contentIndex">

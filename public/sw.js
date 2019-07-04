@@ -1,5 +1,7 @@
-var CACHE_NAME = 'tipe-cache-v2'
-var urlsToCache = []
+var CACHE_NAME = 'tipe-cache-v3'
+var urlsToCache = [
+  '/'
+]
 
 self.addEventListener('install', function (event) {
   // Perform install steps
